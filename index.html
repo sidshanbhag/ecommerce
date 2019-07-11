@@ -1,0 +1,57 @@
+<head>
+<title>sidscoffee</title>
+</head>
+
+<body>
+<h1> Dummy Page</h1>
+
+<h2> Sid's Coffee</h2>
+
+<p>Here is a link to Google: <a href="https://www.google.com">Google</a></p>
+
+
+<script src="https://js.stripe.com/v3">	</script>
+
+<!-- Create a button that your customers click to complete their purchase. Customize the styling to suit your branding. -->
+<button
+  style="background-color:#3211E3;color:#DDD;padding:8px 12px;border:0;border-radius:8px;font-size:1em"
+  id="checkout-button-sku_FPgE41uRWsw41I"
+  role="link"
+>
+  Checkout
+</button>
+
+<div id="error-message"></div>
+
+<script>
+  var stripe = Stripe('pk_test_95YTjw9WsjGmaVa9iaSPeaO400uPSP6B0Y');
+
+
+  var checkoutButton = document.getElementById("checkout-button-sku_FPgE41uRWsw41I");
+  checkoutButton.addEventListener("click", function () {
+    // When the customer clicks on the button, redirect
+    // them to Checkout.
+    stripe.redirectToCheckout({
+      items: [{sku: 'sku_FPgE41uRWsw41I', quantity: 1}],
+
+      // Do not rely on the redirect to the successUrl for fulfilling
+      // purchases, customers may not always reach the success_url after
+      // a successful payment.
+      // Instead use one of the strategies described in
+      // https://stripe.com/docs/payments/checkout/fulfillment
+      successUrl: 'https://www.google.com',
+      cancelUrl: 'https://www.google.com',
+    })
+    .then(function (result) {
+      if (result.error) {
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, display the localized error message to your customer.
+        var displayError = document.getElementById('error-message');
+        displayError.textContent = result.error.message;
+      }
+    });
+  });
+</script>
+
+<br>
+</body>
