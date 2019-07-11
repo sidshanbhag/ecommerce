@@ -7,14 +7,12 @@
 
 <h2> Sid's Coffee</h2>
 
-<p>Here is a link to Google: <a href="https://www.google.com">Google</a></p>
-
-
-<script src="https://js.stripe.com/v3">	</script>
+<!-- Load Stripe.js on your website. -->
+<script src="https://js.stripe.com/v3"></script>
 
 <!-- Create a button that your customers click to complete their purchase. Customize the styling to suit your branding. -->
 <button
-  style="background-color:#3211E3;color:#DDD;padding:8px 12px;border:0;border-radius:8px;font-size:1em"
+  style="background-color:#6772E5;color:#FFF;padding:8px 12px;border:0;border-radius:4px;font-size:1em"
   id="checkout-button-sku_FPgE41uRWsw41I"
   role="link"
 >
@@ -26,9 +24,8 @@
 <script>
   var stripe = Stripe('pk_test_95YTjw9WsjGmaVa9iaSPeaO400uPSP6B0Y');
 
-
-  var checkoutButton = document.getElementById("checkout-button-sku_FPgE41uRWsw41I");
-  checkoutButton.addEventListener("click", function () {
+  var checkoutButton = document.getElementById('checkout-button-sku_FPgE41uRWsw41I');
+  checkoutButton.addEventListener('click', function () {
     // When the customer clicks on the button, redirect
     // them to Checkout.
     stripe.redirectToCheckout({
@@ -39,8 +36,8 @@
       // a successful payment.
       // Instead use one of the strategies described in
       // https://stripe.com/docs/payments/checkout/fulfillment
-      successUrl: 'https://www.google.com',
-      cancelUrl: 'https://www.google.com',
+      successUrl: 'https://sidshanbhag.github.io/ecommerce/',
+      cancelUrl: 'https://sidshanbhag.github.io/ecommerce/',
     })
     .then(function (result) {
       if (result.error) {
@@ -52,6 +49,7 @@
     });
   });
 </script>
+
 
 <br>
 </body>
