@@ -10,64 +10,9 @@
 <img src="Coffee Dark Roast 1kg.jpg" alt="Coffee Dark Roast 1kg" width=200>
 <br> 
  
-<!-- Loading Adyen Stripe.js on your website. -->
-<script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.0.0/adyen.js"></script>
-
-<link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.0.0/adyen.css"/>
-
-<div id="dropin"></div>
-
-<script> 
-const configuration = {
-  locale: "en_US",
-  environment: "test",
-  originKey: "pub.v2.8015640013582721.aHR0cHM6Ly9zaWRzaGFuYmhhZy5naXRodWIuaW8vZWNvbW1lcmNlLw.gTD2IBCNj6amtM1yZkEeYp_s18IMDbFMAwE2pQ9byI4",
-  paymentMethodsResponse: paymentMethodsResponse
-};
-const checkout = new AdyenCheckout(configuration);
-
- 
-const dropin = checkout
-.create('dropin', {
-  paymentMethodsConfiguration: {
-    
-    card: { //Example optional configuration for Cards
-      hasHolderName: true,
-      holderNameRequired: true,
-      enableStoreDetails: true,
-      name: 'Credit or debit card'
-    }
-  },
-  onSubmit: (state, dropin) => {
-    makePayment(state.data)
-      // Your function calling your server to make the /payments request
-      .then(action => {
-        dropin.handleAction(action);
-        // Drop-in will handle the action object from the /payments response
-      })
-      .catch(error => {
-        throw Error(error);
-      });
-    },
-  onAdditionalDetails: (state, dropin) => {
-    makeDetailsCall(state.data)
-      // Your function calling your server to make a /payments/details request
-      .then(action => {
-        dropin.handleAction(action);
-        // Drop-in will handle the action object from the /payments/details response
-      })
-      .catch(error => {
-        throw Error(error);
-      });
-    }
-})
-.mount('#dropin');
-</script>
- 
-  
 <!-- Load Stripe.js on your website. -->
 <script src="https://js.stripe.com/v3"></script>
-<br>
+
 <!-- Create a button that your customers click to complete their purchase. Customize the styling to suit your branding. -->
 <button
   style="background-color:#FFC90F;color:#000;padding:8px 12px;border:0;border-radius:8px;font-size:1em"
