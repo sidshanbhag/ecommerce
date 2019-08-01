@@ -57,4 +57,84 @@
 
 
 <br>
+ 
+ // Re-using cart from previous snippet
+<script>
+  id="bolt-track"
+  type="text/javascript"
+  src="{CDN_URL}/track.js"
+  data-publishable-key="{PUBLISHABLE_KEY}">
+</script>
+ 
+ <script>
+  id="bolt-connect"
+  type="text/javascript"
+  src="{CDN_URL}/connect.js"
+  data-publishable-key="{PUBLISHABLE_KEY}">
+</script>
+
+// <script>
+
+ //<div class="bolt-checkout-button bolt-multi-step-checkout"></div>
+ 
+ //<script>
+
+ var cart = {
+  [
+    {
+      reference: "123",
+      quantity: 1,
+    },
+  ],
+};
+
+var buttonClass = "bolt-product-checkout-button"
+var hints = {};
+var callbacks = {
+  check: function() {
+    var quantity = cart.items[0].quantity;
+    if (quantity == "") {
+      $("#quantityError").text("Please input a valid quantity")
+      return false; 
+    }
+    // Removing text if the error goes away
+    $("#quantityError").text("")
+    return true;
+  },
+  
+  onCheckoutStart: function() {
+    // This function is called after the checkout form is presented to the user.
+  },
+  
+  onShippingDetailsComplete: function() {
+    // This function is called when the user proceeds to the shipping options page.
+    // This is applicable only to multi-step checkout.
+  },
+  
+  onShippingOptionsComplete: function() {
+    // This function is called when the user proceeds to the payment details page.
+    // This is applicable only to multi-step checkout.
+  },
+  
+  onPaymentSubmit: function() {
+    // This function is called after the user clicks the pay button.
+  },
+  
+  success: function(transaction, callback) {
+    // This function is called when the Bolt checkout transaction is successful.
+    
+    // ... Add your code here ...
+        
+    // **IMPORTANT** callback must be executed at the end of this function if `success`
+    // is defined.
+    callback();
+  },
+  
+  close: function() {
+    // This function is called when the Bolt checkout modal is closed.
+  }
+};
+BoltCheckout.configureProductCheckout(cart, hints, callbacks, { checkoutButtonClassName: buttonClass });
+</script>
+<br>
 </body>
